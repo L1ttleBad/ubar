@@ -1,5 +1,2 @@
-data/* filter=lfs diff=lfs merge=lfs -text
-.json filter=lfs diff=lfs merge=lfs -text
 *.json filter=lfs diff=lfs merge=lfs -text
-db/* !text !filter !merge !diff
 *.db filter=lfs diff=lfs merge=lfs -text
