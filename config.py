@@ -75,6 +75,7 @@ class _Config:
         self.use_all_previous_context = True
 
         self.context_scheme = 'UBARU' # UBARU or URURU
+        # self.context_scheme = 'URURU' # UBARU or URURU
 
         self.exp_domains = ['all'] # hotel,train, attraction, restaurant, taxi
         self.log_path = 'logs_test'

@@ -622,7 +622,9 @@ class Modal(object):
             eval_on += '_test'
         if not os.path.exists(cfg.log_path):
             os.mkdir(cfg.log_path)
-        log_file_name = os.path.join(cfg.log_path, model_setting+'-'+eval_on+'.json')
+        # log_file_name = os.path.join(cfg.log_path, model_setting+'-'+eval_on+'.json')
+        time_string = time.strftime("%m_%d", time.localtime())
+        log_file_name = os.path.join(cfg.log_path, cfg.gpt_path.split('/')[-2].split('_')[1]+'-'+cfg.gpt_path.split('/')[-1].split('_')[0]+'-'+time_string+'-'+eval_on+'.json')
         if os.path.exists(log_file_name):
             eval_to_json = json.load(open(log_file_name, 'r'))
             eval_to_json[epoch_setting] = eval_results
@@ -776,7 +778,7 @@ def main():
                         ))
 
         if cfg.context_scheme == 'UBARU':
-            # m.validate()
+            m.validate()
             m.validate('test')
         elif cfg.context_scheme == 'URURU':
             m.validate_URURU()

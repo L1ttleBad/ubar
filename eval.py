@@ -507,15 +507,16 @@ class MultiWozEvaluator(object):
                 reqs[domain] = goal[domain]['requestable']
 
             # print('\n',dial_id)
-            # success, match, stats, counts = self._evaluateGeneratedDialogue(dial, goal, reqs, counts,
-            #                                                         same_eval_as_cambridge=same_eval_as_cambridge)
-            success, match, stats, counts, venue, provided_reqs = self._eval_dial_with_more_return_info(dial, goal, reqs, counts,
+            success, match, stats, counts = self._evaluateGeneratedDialogue(dial, goal, reqs, counts,
                                                                     same_eval_as_cambridge=same_eval_as_cambridge)
+            ##### this line and below is used for saving evaled data
+            # success, match, stats, counts, venue, provided_reqs = self._eval_dial_with_more_return_info(dial, goal, reqs, counts,
+            #                                                         same_eval_as_cambridge=same_eval_as_cambridge)
 
             successes += success
             matches += match
             dial_num += 1
-            dials[dial_id].append({'success': success, 'match' : match, 'goal':goal, 'venue':venue, 'reqs':reqs, 'provided_reqs':provided_reqs})
+            # dials[dial_id].append({'success': success, 'match' : match, 'goal':goal, 'venue':venue, 'reqs':reqs, 'provided_reqs':provided_reqs})
             # for domain in gen_stats.keys():
             #     gen_stats[domain][0] += stats[domain][0]
             #     gen_stats[domain][1] += stats[domain][1]
@@ -528,9 +529,9 @@ class MultiWozEvaluator(object):
             #         sng_gen_stats[domain][2] += stats[domain][2]
 
         # self.logger.info(report)
-        now = datetime.datetime.now()
-        name = now.strftime("%H_%M_%S")
-        json.dump(dials, open('./result/e2e_gen_result_with_more_info'+name+'.json', 'w'))
+        # now = datetime.datetime.now()
+        # name = now.strftime("%H_%M_%S")
+        # json.dump(dials, open('./result/e2e_gen_result_with_more_info'+name+'.json', 'w'))
         succ_rate = successes/( float(dial_num) + 1e-10) * 100
         match_rate = matches/(float(dial_num) + 1e-10) * 100
         return succ_rate, match_rate, counts, dial_num

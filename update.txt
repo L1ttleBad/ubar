@@ -1,7 +1,0 @@
-This log will notedown the update infomation.
-
-we try to fix it .
-
-21/4/14
-Create git, commit the first version.
-Add a update log.
