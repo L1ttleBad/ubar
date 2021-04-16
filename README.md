@@ -45,7 +45,11 @@ We use the tokenization tool in SpaCy which can be installed through:
 ```
 python -m spacy download en_core_web_sm
 ```
-
+If you can't download it due to network reason, you will be able to find the en_core_web_sm file [here](https://github.com/explosion/spacy-models/releases//tag/en_core_web_sm-3.0.0)
+, so that you can install it offline through
+```
+pip install [file_name]
+```
 
 ## Data Preprocessing
 The original data files are put under data/multi-woz, which includes:
