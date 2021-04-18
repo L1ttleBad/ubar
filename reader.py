@@ -120,8 +120,8 @@ class _ReaderBase(object):
 
     def get_eval_data(self, set_name='dev'):
         name_to_set = {'train': self.train, 'test': self.test, 'dev': self.dev}
-        # dial = name_to_set[set_name][:5]
-        dial = name_to_set[set_name]
+        dial = name_to_set[set_name][:5]
+        # dial = name_to_set[set_name]
         # found = 0
         # for sin_dial in name_to_set[set_name]:
         #     if sin_dial[0]['dial_id'] == 'mul2119':
