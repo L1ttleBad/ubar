@@ -23,6 +23,7 @@ from config import global_config as cfg
 # from config21 import global_config as cfg  # global, already initialized
 # import debuger
 
+
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -476,6 +477,8 @@ class Modal(object):
                     
                 result_collection.update(
                     self.reader.inverse_transpose_turn(dialog))
+                logging.info(
+                    'inferencing {}/{}, time {:.2f} min'.format(dial_idx + 1, len(eval_data), (time.time() - btm) / 60))
 
         logging.info("inference time: {:.2f} min".format((time.time()-btm)/60))
         # score
@@ -491,6 +494,28 @@ class Modal(object):
         eval_results['bleu'] = bleu
         eval_results['success'] = success
         eval_results['match'] = match
+        model_setting, epoch_setting = cfg.eval_load_path.split('/')[1], cfg.eval_load_path.split('/')[2]
+
+
+        eval_on = '-'.join(cfg.exp_domains)
+        if data == 'test':
+            eval_on += '_test'
+        if not os.path.exists(cfg.log_path):
+            os.mkdir(cfg.log_path)
+        # log_file_name = os.path.join(cfg.log_path, model_setting+'-'+eval_on+'.json')
+        time_string = time.strftime("%m_%d", time.localtime())
+        log_file_name = os.path.join(cfg.log_path, cfg.gpt_path.split('/')[-2].split('_')[1] + '-' +
+                                     cfg.gpt_path.split('/')[-1].split('_')[
+                                         0] + '-' + time_string + '-' + eval_on + '.json')
+        if os.path.exists(log_file_name):
+            eval_to_json = json.load(open(log_file_name, 'r'))
+            eval_to_json[epoch_setting] = eval_results
+            json.dump(eval_to_json, open(log_file_name, 'w'), indent=2)
+        else:
+            eval_to_json = {}
+            eval_to_json[epoch_setting] = eval_results
+            json.dump(eval_to_json, open(log_file_name, 'w'), indent=2)
+        logging.info('update eval results to {}'.format(log_file_name))
 
         return eval_results
 
