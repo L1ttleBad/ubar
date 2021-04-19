@@ -75,6 +75,8 @@ class _Config:
         self.use_all_previous_context = True
 
         self.context_scheme = 'UBARU' # UBARU or URURU
+        # self.context_scheme = 'URURU' # UBARU or URURU
+        self.pure_ur = False
 
         self.exp_domains = ['all'] # hotel,train, attraction, restaurant, taxi
         self.log_path = 'logs_test'
@@ -107,7 +109,7 @@ class _Config:
         self.enable_dspn = False # removed
         self.enable_dst = False
 
-        self.use_true_bspn_for_ctr_eval = False
+        self.use_true_bspn_for_ctr_eval = True
         self.use_true_domain_for_ctr_eval = True
         self.limit_bspn_vocab = False
         self.limit_aspn_vocab = False
