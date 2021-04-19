@@ -179,11 +179,17 @@ class Modal(object):
 
                         # to tensor
                         inputs = self.add_torch_input(inputs)
-                        # loss
-                        outputs = self.model(inputs['contexts_tensor'])
-                        # outputs = self.model(inputs['contexts_tensor']) # debugging with GPT2Model
-                        loss = self.calculate_loss_and_accuracy(
-                            outputs, labels=inputs['contexts_tensor'])
+                        if not cfg.pure_ur: #if train model with belief span and action
+                            # loss
+                            outputs = self.model(inputs['contexts_tensor'])
+                            # outputs = self.model(inputs['contexts_tensor']) # debugging with GPT2Model
+                            loss = self.calculate_loss_and_accuracy(
+                                outputs, labels=inputs['contexts_tensor'])
+                        else:
+                            outputs = self.model(inputs['labels'])
+                            loss = self.calculate_loss_and_accuracy(
+                                outputs, labels=inputs['labels'])
+
                         loss.backward()
                         tr_loss += loss.item()
                         torch.nn.utils.clip_grad_norm_(
