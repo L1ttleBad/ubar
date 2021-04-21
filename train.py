@@ -793,13 +793,15 @@ def main():
     if args.mode == 'train':    # train
         if cfg.save_log:  # save cfg details.
             pass
-        if cfg.context_scheme == 'UBARU':
-            m.train()
-        elif cfg.context_scheme == 'URURU':
-            m.train_URURU()
-        else:
-            logging.info('Invalid context Scheme. must be UBARU or URURU')
-            exit()
+        # if cfg.context_scheme == 'UBARU':
+        #     m.train()
+        # elif cfg.context_scheme == 'URURU':
+        #     m.train_URURU()
+
+        # else:
+        #         #     logging.info('Invalid context Scheme. must be UBARU or URURU')
+        #         #     exit()
+        m.train()
     elif args.mode == 'adjuest':
         pass
     else:  # test

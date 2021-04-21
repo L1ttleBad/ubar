@@ -12,6 +12,7 @@ from collections import OrderedDict
 from db_ops import MultiWozDB
 from torch.utils.data import Dataset, DataLoader
 
+
 from config import global_config as cfg
 # from config21 import global_config as cfg
 
@@ -863,12 +864,30 @@ class MultiWozReader(_ReaderBase):
         """
         inputs = {}
         contexts = []
-        cell_list = ['user', 'bspn', 'db', 'aspn', 'resp']
+        pure_ur = (cfg.context_scheme == 'URURU' and cfg.pure_ur)
+        urur = (cfg.context_scheme == 'URURU' and not cfg.pure_ur)
+        if cfg.context_scheme == 'UBARU':
+            cell_list = ['user', 'bspn', 'db', 'aspn', 'resp']
+        elif pure_ur:
+            cell_list = ['user','db','resp']
+        elif urur:
+            cell_list = ['user','resp']
+        else:
+            assert 0 , 'config error'
+
         for idx, dial in enumerate(dial_batch):
             context = []
-            for turn_num, turn in enumerate(dial):
-                for cell in cell_list:
-                    context.extend(turn[cell])
+            if urur:
+                pick_turn = random.randint(0, len(dial)-1)
+                for turn_num, turn in enumerate(dial[:pick_turn]):
+                    for cell in cell_list:
+                        context.extend(turn[cell])
+                turn = dial[pick_turn]
+                context.extend(turn['user']+turn['bspn']+turn['db']+turn['aspn']+turn['resp'])
+            else:
+                for turn_num, turn in enumerate(dial):
+                    for cell in cell_list:
+                        context.extend(turn[cell])
             contexts.append(context)
         
         inputs['contexts'] = contexts

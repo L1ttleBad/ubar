@@ -136,18 +136,21 @@ class _Config:
         if not os.path.exists('./log'):
             os.mkdir('./log')
         if self.save_log and self.mode == 'train':
-            file_handler = logging.FileHandler('./log/log_{}_{}_{}_{}_sd{}.txt'.format(self.log_time, mode, '-'.join(self.exp_domains), self.exp_no, self.seed))
+            file_handler = logging.FileHandler('./log/log_{}_{}_{}_{}_sd{}.json'.format(self.log_time, mode, '-'.join(self.exp_domains), self.exp_no, self.seed))
+            # logging.basicConfig(handlers=[stderr_handler, file_handler])
             logging.basicConfig(handlers=[stderr_handler, file_handler])
         elif self.mode == 'test':
             eval_log_path = os.path.join(self.eval_load_path, 'eval_log.json')
             # if os.path.exists(eval_log_path):
             #     os.remove(eval_log_path)
             file_handler = logging.FileHandler(eval_log_path)
-            logging.basicConfig(handlers=[stderr_handler, file_handler])
+            logging.basicConfig(handlers=[stderr_handler, file_handler],level=logging.INFO)
         else:
             logging.basicConfig(handlers=[stderr_handler])
+
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
+
 
 global_config = _Config()
 
