@@ -758,7 +758,7 @@ def main():
             cfg.exp_path = os.path.join(experiments_path,'{}_{}_sd{}_lr{}_bs{}_ga{}'.format('-'.join(cfg.exp_domains),
                                                                           cfg.exp_no, cfg.seed, cfg.lr, cfg.batch_size,
                                                                           cfg.gradient_accumulation_steps))
-            logging.info('save path:', cfg.exp_path)
+            #logging.info('save path:', cfg.exp_path)
             if cfg.save_log:
                 if not os.path.exists(cfg.exp_path):
                     os.mkdir(cfg.exp_path)
