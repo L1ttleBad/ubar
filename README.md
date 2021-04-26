@@ -1,6 +1,10 @@
 # My Version of UBAR
 This version of ubar is modified by me. This file will note down the changed parts.
 
+2021.4.26
+Add a email file, so that you can send email through it after fill need infomation in privater\_config.
+
+
 2021.4.19
 Add pure_ur parameter in config.py, modified train.py to support pure ur model training which means training without dst and action label.
 
